@@ -3,6 +3,8 @@ package CRUD;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Lob;
 import java.sql.Blob;
 import java.sql.Date;
@@ -11,6 +13,8 @@ import java.sql.Date;
 @Entity
 public class User {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String firstName;
     private String lastName;

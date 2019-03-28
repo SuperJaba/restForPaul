@@ -26,6 +26,7 @@ public class UserResources {
 
         if (!user.isPresent())
             throw new UserNotFoundException("id-"+ id);
+
         return user.get();
     }
 
