@@ -1,10 +1,11 @@
 package CRUD;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,36 @@ public class UserResources {
         if (!user.isPresent())
             throw new UserNotFoundException("id-"+ id);
         return user.get();
+    }
+
+    @DeleteMapping("user/{id}")
+    public void deleteUser(@PathVariable long id) {
+        userRepository.deleteById(id);
+    }
+
+    @PostMapping("/user")
+    public ResponseEntity<Object> createUser(@RequestBody User user) {
+        User savedUser = userRepository.save(user);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedUser.getId()).toUri();
+
+        return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable long id) {
+
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (!userOptional.isPresent())
+            return ResponseEntity.notFound().build();
+
+        user.setId(id);
+
+        userRepository.save(user);
+
+        return ResponseEntity.noContent().build();
     }
 }
 

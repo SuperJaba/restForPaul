@@ -11,7 +11,7 @@ import java.sql.Date;
 @Entity
 public class User {
 
-    private Integer id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
