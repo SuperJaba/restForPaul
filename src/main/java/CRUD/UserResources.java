@@ -29,7 +29,7 @@ public class UserResources {
         return user.get();
     }
 
-    @DeleteMapping("user/{id}")
+    @DeleteMapping("/user/{id}")
     public void deleteUser(@PathVariable long id) {
         userRepository.deleteById(id);
     }
