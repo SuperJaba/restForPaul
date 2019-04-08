@@ -1,0 +1,1 @@
+insert into user ( first_name, last_name, email , pass ) values ( 'Marian','Burak','blop@2p.pl','123ert') ;
